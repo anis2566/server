@@ -52,7 +52,9 @@ const getScouts = async (req, res, next) => {
   const gender = req.query.gender;
   const section = req.query.section;
   try {
-    let query = {};
+    let query = {
+      status: "active",
+    };
 
     if (name !== "") {
       query.nameEnglish = { $regex: name, $options: "i" };
@@ -194,6 +196,31 @@ const getScoutByUserId = async (req, res, next) => {
   }
 };
 
+// UPDATE SCOUT STATUS
+const updateScoutStatus = async (req, res, next) => {
+  const { scoutId } = req.params;
+  const { status } = req.body;
+  try {
+    const scout = await Scout.findById(scoutId);
+    if (!scout) {
+      throw new Error("Scout not found");
+    }
+
+    // UPDATE SCOUT STATUS
+    await Scout.findByIdAndUpdate(
+      scoutId,
+      {
+        status: status,
+      },
+      { new: true }
+    );
+    // RESPONSE
+    res.status(200).json({ message: "Scout status updated" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createScout,
   getScouts,
@@ -202,4 +229,5 @@ module.exports = {
   getCancelledScouts,
   getVerifiedScouts,
   getScoutByUserId,
+  updateScoutStatus,
 };

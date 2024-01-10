@@ -9,6 +9,7 @@ const {
   getCancelledScouts,
   getVerifiedScouts,
   getScoutByUserId,
+  updateScoutStatus,
 } = require("../controllers/scout");
 const uploader = require("../middlewares/uploader");
 
@@ -21,5 +22,6 @@ router.route("/cancelled").get(getCancelledScouts);
 router.route("/verified").get(getVerifiedScouts);
 router.route("/:scoutId").get(getScout);
 router.route("/user/:userId").get(getScoutByUserId);
+router.route("/update/:scoutId").put(updateScoutStatus);
 
 module.exports = router;

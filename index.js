@@ -12,6 +12,7 @@ const { connectDB } = require("./config/db");
 const authRoutes = require("./routes/auth.routes");
 const scoutRoutes = require("./routes/scout.routes");
 const unitRoutes = require("./routes/unit.routes");
+const eventRoutes = require("./routes/event.routes");
 
 // dashboard routes imports
 
@@ -51,6 +52,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/scout", scoutRoutes);
 app.use("/api/unit", unitRoutes);
+app.use("/api/event", eventRoutes);
 
 // dashboard routes
 
